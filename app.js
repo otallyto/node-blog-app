@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const admin = require('./routes/admin');
 const path = require('path');
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //Configurações
     //Body Parser
@@ -15,7 +15,10 @@ const path = require('path');
     app.engine('handlebars',handlebars({defaultLayout: 'main'}));
     app.set('view engine', 'handlebars');
     //Mongoose
-        //Em breve
+    mongoose.Promise = global.Promise;
+    mongoose.connect('mongodb://localhost:27017/blogapp', {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
+        console.log("Conexão efetuada com sucesso!");
+    }).catch((error)=>{console.log("Erro ao se conectar ao banco de dados: "+ error)});
     //Public
     app.use(express.static(path.join(__dirname,'public')));
 
