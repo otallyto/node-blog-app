@@ -42,7 +42,7 @@ router.post("/categorias/edit", (req, res) => {
     Categoria.findOne({ _id: req.body.id }).then((categoria) => {
         categoria.nome = req.body.nome;
         categoria.slug = req.body.slug;
-       
+
 
         categoria.save().then(() => {
             req.flash("success_msg", "Categoria editada com sucesso!");
@@ -50,7 +50,7 @@ router.post("/categorias/edit", (req, res) => {
         }).catch((err) => {
             req.flash("error_msg", "Houve um erro ao  categoria!");
             res.redirect('/admin/categorias')
-           
+
         })
     }).catch((err) => {
         req.flash("error_msg", "Houve um erro ao editar a categoria!");
@@ -88,6 +88,16 @@ router.post("/categorias/nova", (req, res) => {
 
 
 });
+
+router.post("/categorias/deletar", (req, res) => {
+    Categoria.remove({_id: req.body.id}).then(()=>{
+        req.flash("success_msg", "Categoria deletada com sucesso!");
+        res.redirect('/admin/categorias');
+    }).catch((err)=>{
+        req.flash("error_msg", "Categoria deletada com sucesso!");
+        res.redirect('/admin/categorias')
+    })
+})
 
 
 
