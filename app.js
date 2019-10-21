@@ -41,6 +41,10 @@ const flash = require('connect-flash');
 //Rotas
 app.use('/admin',admin);
 
+app.use('/', (req,res)=>{
+    res.send("<h1>it's working</h1>")
+})
+
 
 //Outros
 const PORT = 8081;

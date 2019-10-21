@@ -181,18 +181,32 @@ router.post("/postagem/edit", (req, res) => {
         postagem.conteudo = req.body.conteudo;
         postagem.categoria = req.body.categoria;
 
-        postagem.save().then(()=>{
+        postagem.save().then(() => {
             req.flash("success_msg", "Postagem editada com sucesso")
             res.redirect("/admin/postagens")
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
             req.flash("error_msg", "Erro ao editar a categoria");
             res.redirect("/admin/postagens")
         })
-     }).catch((err) => { 
+    }).catch((err) => {
 
         req.flash("error_msg", "Houve um erro ao salvar uma edição")
         res.redirect("/admin/postagens")
+    })
+})
+
+//Deletar postagem
+//Forma não recomendada
+router.get("/postagens/deletar/:id", (req, res) => {
+    Postagem.deleteMany({ _id: req.params.id }).then((
+    ) => {
+        req.flash("success_msg", "Post apagado com sucesso")
+        res.redirect("/admin/postagens")
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro interno!")
+        res.redirect("/admin/postagens")
+        console.log(err)
     })
 })
 
