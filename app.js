@@ -11,6 +11,8 @@ const flash = require("connect-flash");
 require("./models/Postagens");
 require("./models/Categoria");
 const usuarios = require("./routes/usuario");
+const passport = require("passport");
+require("./config/auth")(passport);
 
 const Postagem = mongoose.model("postagens");
 const Categoria = mongoose.model("categorias");
@@ -24,12 +26,16 @@ app.use(
     saveUninitialized: true
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 //Flash
 app.use(flash());
 //Middleware
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash('error')
   next();
 });
 //Body Parser
