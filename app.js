@@ -139,7 +139,7 @@ app.get("/categorias/:slug", (req, res) => {
 
 app.use("/usuarios", usuarios);
 //Outros
-const PORT = 8081;
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log("servidor rodando http://localhost:8081");
 });
