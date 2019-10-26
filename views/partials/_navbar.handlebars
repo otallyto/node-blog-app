@@ -11,11 +11,27 @@
       <li class="nav-item">
         <a class="nav-link" href="/categorias">Categoria</a>
       </li>
+
+      {{#if user.eAdmin}}
+
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">Admin</a>
+      </li>
+
+
+
+      {{else}}
+
+      {{/if}}
+
       {{#if user}}
+
       <li class="nav-item">
         <a class="nav-link" href="/usuarios/logout">Sair</a>
       </li>
+
       {{else}}
+
       <li class="nav-item">
         <a class="nav-link" href="/usuarios/login">Login</a>
       </li>
@@ -24,11 +40,8 @@
         <a class="nav-link" href="/usuarios/registro">Registro</a>
       </li>
 
-
-
       {{/if}}
 
     </ul>
-
   </div>
 </nav>

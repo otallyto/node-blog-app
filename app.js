@@ -35,7 +35,7 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
-  res.locals.error = req.flash('error')
+  res.locals.error = req.flash("error");
   res.locals.user = req.user || null;
   next();
 });
@@ -48,7 +48,7 @@ app.set("view engine", "handlebars");
 //Mongoose
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb://localhost:27017/blogapp", {
+  .connect("mongodb+srv://otallyto:Rodrigues_2019@cluster0-jq9ag.mongodb.net/BlogAPP?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
