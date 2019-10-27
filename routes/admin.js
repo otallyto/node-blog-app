@@ -7,14 +7,12 @@ require("../models/Postagens");
 const Postagem = mongoose.model("postagens");
 const { eAdmin } = require("../helpers/eAdmin");
 
+//Pagina agmin
 router.get("/", eAdmin, (req, res) => {
   res.render("admin/index");
 });
 
-router.get("/posts", eAdmin, (req, res) => {
-  res.send("Pagina de posts");
-});
-
+//Pagina de categorias
 router.get("/categorias", eAdmin, (req, res) => {
   Categoria.find()
     .then(categorias => {
@@ -26,13 +24,14 @@ router.get("/categorias", eAdmin, (req, res) => {
     });
 });
 
+//Adicionar uma categoria
 router.get("/categorias/add", eAdmin, (req, res) => {
   res.render("admin/addcategorias");
 });
 
 //Editar uma categoria
 router.get("/categorias/edit/:id", eAdmin, (req, res) => {
-  Categoria.findOne({ id_: req.params._id })
+  Categoria.findOne({ _id: req.params.id })
     .then(categoria => {
       res.render("admin/editcategoria", { categoria: categoria });
     })
@@ -42,6 +41,7 @@ router.get("/categorias/edit/:id", eAdmin, (req, res) => {
     });
 });
 
+//Editar categoria no banco de dados
 router.post("/categorias/edit", eAdmin, (req, res) => {
   Categoria.findOne({ _id: req.body.id })
     .then(categoria => {
@@ -55,7 +55,7 @@ router.post("/categorias/edit", eAdmin, (req, res) => {
           res.redirect("/admin/categorias");
         })
         .catch(err => {
-          req.flash("error_msg", "Houve um erro ao  categoria!");
+          req.flash("error_msg", "Houve um erro ao salvar a categoria!");
           res.redirect("/admin/categorias");
         });
     })
@@ -65,6 +65,7 @@ router.post("/categorias/edit", eAdmin, (req, res) => {
     });
 });
 
+//Criar nova categoria
 router.post("/categorias/nova", eAdmin, (req, res) => {
   var erros = [];
   if (
@@ -120,12 +121,7 @@ router.post("/categorias/deletar", eAdmin, (req, res) => {
     });
 });
 
-//Acessar postagens
-/*
-router.get("/postagens", (req, res) => {
-    res.render("admin/postagens");
-})*/
-
+//Pagina de postagens
 router.get("/postagens", eAdmin, (req, res) => {
   Postagem.find()
     .populate("categoria")
@@ -151,6 +147,7 @@ router.get("/postagens/add", eAdmin, (req, res) => {
     });
 });
 
+//Cadastrar postagens no banco 
 router.post("/postagens/nova", eAdmin, (req, res) => {
   var erros = [];
 
@@ -185,6 +182,7 @@ router.post("/postagens/nova", eAdmin, (req, res) => {
   }
 });
 
+//Editar postagem
 router.get("/postagens/edit/:id", eAdmin, (req, res) => {
   Postagem.findOne({ _id: req.params.id })
     .then(postagem => {
