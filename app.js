@@ -93,9 +93,6 @@ app.get("/postagem/:slug", (req, res) => {
     });
 });
 
-app.get("*", (req, res) => {
-  res.render("error/404")
-});
 
 app.get("/categorias", (req, res) => {
   Categoria.find()
@@ -139,6 +136,11 @@ app.get("/categorias/:slug", (req, res) => {
 
 app.use("/usuarios", usuarios);
 //Outros
+
+app.get("*", (req, res) => {
+  res.render("error/404")
+});
+
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log("servidor rodando http://localhost:8081");
