@@ -93,8 +93,8 @@ app.get("/postagem/:slug", (req, res) => {
     });
 });
 
-app.get("/404", (req, res) => {
-  res.send("Error 404!");
+app.get("*", (req, res) => {
+  res.render("error/404")
 });
 
 app.get("/categorias", (req, res) => {
