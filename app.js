@@ -48,7 +48,7 @@ app.set("view engine", "handlebars");
 //Mongoose
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb+srv://otallyto:Rodrigues_2019@cluster0-jq9ag.mongodb.net/BlogAPP?retryWrites=true&w=majority", {
+  .connect("sua string de conexao", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
